@@ -1,0 +1,73 @@
+{% extends 'login_register/base.html' %}
+{% load static %}
+
+
+
+
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="dynamic-image">
+        <img src="{% static 'images/home1.png' %}" alt="" id="animated-image">
+    </div>
+    <div class="card">
+        <!-- {% if messages %}
+        <div class="errors">
+            {% for message in messages %}
+            <div class="error">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %} -->
+        <div class="logo-login">
+            <img src="{% static 'images/icons/logo.PNG' %}" alt="" id="img">
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp"
+                        placeholder="Enter your username" name="username">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="exampleInputPassword1"
+                        placeholder="Enter your password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                {% if messages %}
+                <div class="errors">
+                    {% for message in messages %}
+                    <div class="error">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block footer %}
+<p>Footer</p>
+{% endblock %}
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var imageElement = document.getElementById('animated-image');
+        var imageSources = [
+            "{% static 'images/home.png' %}",
+            "{% static 'images/home1.png' %}",
+            "{% static 'images/home2.png' %}"
+        ];
+        var currentIndex = 0;
+
+        setInterval(function () {
+            currentIndex = (currentIndex + 1) % imageSources.length;
+            imageElement.src = imageSources[currentIndex];
+        }, 3000);  // Change image every 5 seconds (5000 milliseconds)
+    });
+</script>
+
+{% endblock %}

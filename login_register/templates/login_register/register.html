@@ -1,0 +1,47 @@
+{% extends 'login_register/base.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
+{% endblock %} {% block content %}
+<div class="main">
+    <div class="card">
+        {% if messages %}
+        <div class="errors">
+            {% for message in messages %}
+            <div class="error">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="logo-login">
+            <h3>Instagram</h3>
+            <p>Sign up to see photos and videos from your friends.</p>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                        placeholder="Enter your email" name="email" />
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="fullname" placeholder="Enter your fullname"
+                        name="fullname" />
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp"
+                        placeholder="Enter your username" name="username" />
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="exampleInputPassword1"
+                        placeholder="Enter your password" name="password" />
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<!-- <script>
+    window.location = window.location;
+</script> -->
+
+{% endblock %}

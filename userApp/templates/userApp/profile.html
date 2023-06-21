@@ -1,0 +1,23 @@
+{% extends 'userApp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Profile</h1>
+<h3>{{ profile.username }}</h3>
+<div class="posts">
+    <h2>Posts</h2>
+    <h3>{{ profile.posts_number }}</h3>
+</div>
+<div class="followers">
+    <h2>Followers</h2>
+    <h3>{{profile.followers_count}}</h3>
+</div>
+<div class="following">
+    <h2>Following</h2>
+    <h3>{{profile.following_count}}</h3>
+</div>
+<a href="" class="btn btn-primary"> Edit Profile</a>
+<a href="{% url 'posts' %}" class="btn btn-primary"> Share your post</a>
+
+{% endblock %}

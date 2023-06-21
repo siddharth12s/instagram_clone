@@ -1,0 +1,45 @@
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.dynamic-image {
+  width: 40%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 20%;
+  height: 60%;
+}
+.logo-login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10%;
+}
+.logo-login > img {
+  width: 60%;
+  height: 100%;
+  align-self: center;
+}
+
+form {
+  padding: 7%;
+}
+
+.errors {
+  padding: 2%;
+}
+.error {
+  color: red;
+  text-align: center;
+}
+button {
+  width: 100%;
+}
