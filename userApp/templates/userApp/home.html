@@ -1,47 +1,46 @@
 {% extends 'userApp/base.html' %}
 {% load static %}
 
-
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
 {% block content %}
 <div class="sidebar">
     <div class="offcanvas-body">
         <a href="https://google.com" class="btn btn-primary">Home</a>
         <a href="https://google.com" class="btn btn-primary">Search</a>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" id="modalTriggerButton" data-toggle="modal"
-            data-target="#exampleModalCenter">
-            Create
-        </button>
+        <button id="myBtn" class="btn btn-primary">Create</button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h3>Create new post</h3>
+                    {{ form.errors }}
+                    <label for="file-upload" class="btn btn-primary" id="but">
+                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                    </label>
+                    <input id="file-upload" type="file" style="display: none;" name="image">
+                    <textarea type="text" class="custom-input" name="caption"
+                        placeholder="Enter your caption"></textarea>
+                    <button id="myBtn2" class="btn btn-primary">Post</button>
+
+                </form>
+
+
+            </div>
+
+        </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Create new post</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <button class="btn btn-primary"><input type="file" class="custom-file-input"
-                                        id="inputGroupFile01" placeholder="Select from your device"></button>
-                                <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form.as_p }}
-                                    <button type="submit">Upload</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
+        <div class="modal">
+            <div class="modal-content">
+
             </div>
         </div>
         <a href="https://google.com" class="btn btn-primary">Messages</a>
@@ -52,31 +51,30 @@
 {% endblock %}
 {% block script %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Select the modal element
-        var modal = document.getElementById('exampleModalCenter');
+    var modal = document.getElementById("myModal");
 
-        // Get the button that triggers the modal
-        var modalTriggerButton = document.getElementById('modalTriggerButton');
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
 
-        // Add a click event listener to the button
-        modalTriggerButton.addEventListener('click', function () {
-            // Show the modal by adding the 'show' class
-            modal.classList.add('show');
-            // Set the modal to be visible by removing the 'hide' class
-            modal.style.display = 'block';
-        });
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-        // Get the close button inside the modal
-        var closeButton = document.querySelector('.modal .close');
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
-        // Add a click event listener to the close button
-        closeButton.addEventListener('click', function () {
-            // Hide the modal by removing the 'show' class
-            modal.classList.remove('show');
-            // Set the modal to be hidden by adding the 'hide' class
-            modal.style.display = 'none';
-        });
-    });
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
 </script>
 {% endblock %}

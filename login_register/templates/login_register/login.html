@@ -15,13 +15,6 @@
         <img src="{% static 'images/home1.png' %}" alt="" id="animated-image">
     </div>
     <div class="card">
-        <!-- {% if messages %}
-        <div class="errors">
-            {% for message in messages %}
-            <div class="error">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %} -->
         <div class="logo-login">
             <img src="{% static 'images/icons/logo.PNG' %}" alt="" id="img">
         </div>
@@ -37,6 +30,7 @@
                         placeholder="Enter your password" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
+                <a href="{% url 'register' %}">Create your account</a>
                 {% if messages %}
                 <div class="errors">
                     {% for message in messages %}

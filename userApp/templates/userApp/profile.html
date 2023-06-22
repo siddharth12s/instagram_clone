@@ -1,23 +1,50 @@
 {% extends 'userApp/base.html' %}
 {% load static %}
 
-{% block content %}
 
-<h1>Profile</h1>
-<h3>{{ profile.username }}</h3>
-<div class="posts">
-    <h2>Posts</h2>
-    <h3>{{ profile.posts_number }}</h3>
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
+{% endblock %}
+{% block content %}
+<div class="header">
+    <h1>Profile</h1>
+    <div class="header-content">
+        <div class="username-settings">
+            <h3>{{ username }}</h3>
+            <a href="" class="btn btn-primary"> Edit Profile</a>
+            <a href="{% url 'posts' %}" class="btn btn-primary"> Settings</a>
+        </div>
+        <div class="post-follow">
+            <div class="posts">
+                <p>{{post_count}}</p>
+                <p>Posts</p>
+            </div>
+            <div class="followers">
+                <p>{{followers}}</p>
+                <p>Followers</p>
+            </div>
+            <div class="following">
+                <p>{{following}}</p>
+                <p>Following</p>
+            </div>
+        </div>
+        <div class="bio">
+            {{bio}}
+        </div>
+    </div>
 </div>
-<div class="followers">
-    <h2>Followers</h2>
-    <h3>{{profile.followers_count}}</h3>
 </div>
-<div class="following">
-    <h2>Following</h2>
-    <h3>{{profile.following_count}}</h3>
+<div class="post-section">
+    <div class="post-content">
+        {% for post in posts %}
+
+        <div class="img-contain">
+            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
+        </div>
+        {% endfor %}
+
+    </div>
+
 </div>
-<a href="" class="btn btn-primary"> Edit Profile</a>
-<a href="{% url 'posts' %}" class="btn btn-primary"> Share your post</a>
 
 {% endblock %}
