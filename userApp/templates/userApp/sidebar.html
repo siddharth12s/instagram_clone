@@ -1,13 +1,11 @@
 {% extends 'userApp/base.html' %}
 {% load static %}
 
-
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
 {% endblock %}
-{% block content %}
+
+{% block sidebar %}
 <div id="searchDiv" class="showSearch">
     <input type="text" id="searchField" placeholder="Search...">
     <div id="searchResults">
@@ -26,7 +24,7 @@
         <img src="{% static 'login_register/images/home1.png' %}" alt="" id="animated-image">
     </div> -->
     <!-- <div class="offcanvas-body"> -->
-    <a href="{% url 'home' %}" class="btn btn-light">Home</a>
+    <a href="https://google.com" class="btn btn-light">Home</a>
     <a href="#" class="btn btn-light" id="searchBtn">Search</a>
 
     <!-- Button trigger modal -->
@@ -64,48 +62,8 @@
     <!-- </div> -->
 
 </div>
-<div class="header">
-    <h1>Profile</h1>
-    <div class="header-content">
-        <div class="username-settings">
-            <h3>{{ username }}</h3>
-            <a href="" class="btn btn-primary"> Edit Profile</a>
-            <a href="{% url 'posts' %}" class="btn btn-primary"> Settings</a>
-        </div>
-        <div class="post-follow">
-            <div class="posts">
-                <p>{{post_count}}</p>
-                <p>Posts</p>
-            </div>
-            <div class="followers">
-                <p>{{following}}</p>
-                <p>Followers</p>
-            </div>
-            <div class="following">
-                <p>{{followers}}</p>
-                <p>Following</p>
-            </div>
-        </div>
-        <div class="bio">
-            {{bio}}
-        </div>
-    </div>
-</div>
-</div>
-<div class="post-section">
-    <div class="post-content">
-        {% for post in posts %}
-
-        <div class="img-contain">
-            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
-        </div>
-        {% endfor %}
-
-    </div>
-
-</div>
-
 {% endblock %}
+
 {% block script %}
 <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

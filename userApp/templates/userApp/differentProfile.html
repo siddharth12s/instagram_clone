@@ -70,7 +70,13 @@
         <div class="username-settings">
             <h3>{{ username }}</h3>
             <a href="" class="btn btn-primary"> Edit Profile</a>
-            <a href="{% url 'posts' %}" class="btn btn-primary"> Settings</a>
+            <a href="{% url 'follow_unfollow' username=username %}" class="btn btn-primary">
+                {% if is_following %}
+                Unfollow
+                {% else %}
+                Follow
+                {% endif %}
+            </a>
         </div>
         <div class="post-follow">
             <div class="posts">

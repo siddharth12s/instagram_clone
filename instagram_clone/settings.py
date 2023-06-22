@@ -79,25 +79,25 @@ WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'instagram',
-#         'USER': 'sidd',
-#         'PASSWORD': 'chelseafc',
-#         "HOST": 'localhost',
-#     }
-# }
-DATABASES ={
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'instagram',
-        'USER': 'postgres',
-        'PASSWORD': 'LLaivmX7tS2m8gHP9eeh',
-        'HOST': 'containers-us-west-109.railway.app',
-        'PORT': '6140'
+        'USER': 'sidd',
+        'PASSWORD': 'chelseafc',
+        "HOST": 'localhost',
     }
 }
+# DATABASES ={
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'instagram',
+#         'USER': 'postgres',
+#         'PASSWORD': 'LLaivmX7tS2m8gHP9eeh',
+#         'HOST': 'containers-us-west-109.railway.app',
+#         'PORT': '6140'
+#     }
+# }
 
 
 # Password validation

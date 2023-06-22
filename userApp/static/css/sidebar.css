@@ -1,0 +1,69 @@
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Sidebar links */
+  .sidebar a {
+    display: block;
+    padding: 16px;
+    width: 80%;
+    text-decoration: none;
+  }
+  
+  /* Active/current link */
+  .sidebar a.active {
+    background-color: #04aa6d;
+    color: white;
+  }
+  
+  /* Links on mouse-over */
+  .sidebar a:hover:not(.active) {
+    color: white;
+  }
+  
+  /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+  div.feed-content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  
+  .sidebar.shrink {
+    width: 8%;
+  }
+  
+  .showSearch {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+  #searchDiv {
+    width: 15%;
+  }
+  .hidesearch {
+    display: none;
+    /* height: 100; */
+    /* transition: width 0.3s ease-in-out; */
+  }
+  #searchResults {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  #search-id {
+    width: 100%;
+  }
+  

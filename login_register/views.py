@@ -8,12 +8,14 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 def index(request):
     return render(request, 'login_register/index.html')
 
+
+@csrf_protect
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -51,7 +53,10 @@ def register_view(request):
     return response
 
 
+@csrf_protect
 def login_view(request):
+    # if request.user.is_authenticated():
+    #     redirect('home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -73,10 +78,6 @@ def login_view(request):
     context = {'form': form}
     return render(request, 'login_register/login.html', context)
 
-
-
-def profile_view(request):
-    return render(request, 'login_register/profile.html')
 
 def logout_view(request):
     logout(request)

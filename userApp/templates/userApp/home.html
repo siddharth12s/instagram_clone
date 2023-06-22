@@ -1,80 +1,84 @@
 {% extends 'userApp/base.html' %}
+{% include 'userApp/sidebar.html' %}
+
 {% load static %}
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block content %}
-<div class="sidebar">
-    <div class="offcanvas-body">
-        <a href="https://google.com" class="btn btn-primary">Home</a>
-        <a href="https://google.com" class="btn btn-primary">Search</a>
-        <!-- Button trigger modal -->
-        <button id="myBtn" class="btn btn-primary">Create</button>
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
+<div id="searchDiv" class="showSearch">
+    <input type="text" id="searchField" placeholder="Search...">
+    <div id="searchResults">
+        {% for name in userDataList %}
+        <a href="#" class="btn btn-light search-name" id="search-id" data-search="{{ name }}">{{ name
+            }}</a>
+        {% empty %}
+        <p>No search results found.</p>
+        {% endfor %}
+    </div>
+    <!-- <div>hello</div> -->
+    <!-- <button id="searchSubmit">Submit</button>x -->
+</div>
+<div class="sidebar" id="sidebar">
+    <!-- <div class="dynamic-image">
+        <img src="{% static 'login_register/images/home1.png' %}" alt="" id="animated-image">
+    </div> -->
+    <!-- <div class="offcanvas-body"> -->
+    <a href="{% url 'home' %}" class="btn btn-light">Home</a>
+    <a href="#" class="btn btn-light" id="searchBtn">Search</a>
 
-                <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <h3>Create new post</h3>
-                    {{ form.errors }}
-                    <label for="file-upload" class="btn btn-primary" id="but">
-                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
-                    </label>
-                    <input id="file-upload" type="file" style="display: none;" name="image">
-                    <textarea type="text" class="custom-input" name="caption"
-                        placeholder="Enter your caption"></textarea>
-                    <button id="myBtn2" class="btn btn-primary">Post</button>
+    <!-- Button trigger modal -->
+    <button id="myBtn" class="btn btn-light">Create</button>
 
-                </form>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
 
+            <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>Create new post</h3>
+                {{ form.errors }}
+                <label for="file-upload" class="btn btn-primary" id="but">
+                    <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                </label>
+                <input id="file-upload" type="file" style="display: none;" name="image">
+                <textarea type="text" class="custom-input" name="caption" placeholder="Enter your caption"></textarea>
+                <button id="myBtn2" class="btn btn-primary">Post</button>
 
-            </div>
+            </form>
+
 
         </div>
 
-        <!-- Modal -->
-        <div class="modal">
-            <div class="modal-content">
+    </div>
 
+    <!-- Modal -->
+    <a href="https://google.com" class="btn btn-light">Messages</a>
+    <a href="{% url 'profile' %}" class="btn btn-light">Profile</a>
+    <a href="{% url 'login' %}">Log out</a>
+
+    <!-- </div> -->
+
+</div>
+<div class="feed">
+    <div class="feed-content">
+        <h1>Feed</h1>
+        <div class="post-section">
+            {% for post in posts %}
+            <div class="post">
+                <h3>{{ post.user_id.username }}</h3>
+                <img src="{{ post.image.url }}" alt="{{ post.caption }}">
+                <p>{{ post.caption }}</p>
             </div>
+            {% endfor %}
         </div>
-        <a href="https://google.com" class="btn btn-primary">Messages</a>
-        <a href="{% url 'profile' %}" class="btn btn-primary">Profile</a>
-        <a href="{% url 'login' %}">Log out</a>
     </div>
 </div>
 {% endblock %}
 {% block script %}
-<script>
-    var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-</script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
