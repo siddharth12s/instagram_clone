@@ -66,4 +66,6 @@ def create_post(request):
 
     return render(request, 'post_form.html', {'form': form})
 
+
+
     
