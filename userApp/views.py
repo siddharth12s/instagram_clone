@@ -23,7 +23,7 @@ def home_view(request):
     all_posts = posts + user_posts
     print(posts)
     random.shuffle(all_posts)
-    return render(request, 'userApp/home.html', {'posts': posts})
+    return render(request, 'userApp/home.html', {'posts': all_posts})
 
 
 def search_view(request):
