@@ -6,12 +6,14 @@ from login_register.models import Users
 from .models import Posts, Follow
 from django.http import JsonResponse
 import random
+from django.views.decorators.csrf import csrf_protect
+
 
 
 
 
 # Create your views here.
-
+@csrf_protect
 @login_required(login_url='login_register:login')
 def home_view(request):
     user = request.user
@@ -52,6 +54,7 @@ def profile_view(request):
     return render(request, 'userApp/profile.html', profile)
 
 @login_required(login_url='login_registerApp:login')
+@csrf_protect
 def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -67,7 +70,7 @@ def post_view(request):
     return render(request, 'home.html', {'form': form})
     
 
-
+@csrf_protect
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
