@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4wy4zjh8(l!+70v2pi+r1s2(+=rivy*sih2t^d8#wn)(x0bl$j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://instagramclone-production-06f2.up.railway.app','https://*.127.0.0.1']
