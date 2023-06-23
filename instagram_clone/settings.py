@@ -88,16 +88,24 @@ WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 #         "HOST": 'localhost',
 #     }
 # }
+# PostgreSQL
+# DATABASES ={
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'instagram',
+#         'USER': 'postgres',
+#         'PASSWORD': 'LLaivmX7tS2m8gHP9eeh',
+#         'HOST': 'containers-us-west-109.railway.app',
+#         'PORT': '6140'
+#     }
+# }
 DATABASES ={
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
-        'USER': 'postgres',
-        'PASSWORD': 'LLaivmX7tS2m8gHP9eeh',
-        'HOST': 'containers-us-west-109.railway.app',
-        'PORT': '6140'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
+
 
 
 # Password validation
