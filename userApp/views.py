@@ -19,9 +19,11 @@ def home_view(request):
     user = request.user
     followed_users = Follow.objects.filter(follower_id=user).values_list('following_id', flat=True)
     posts = list(Posts.objects.filter(user_id__in=followed_users).prefetch_related('user_id').order_by('-created_at'))
+    user_posts = list(Posts.objects.filter(user_id=request.user))
+    all_posts = posts + user_posts
     print(posts)
-    random.shuffle(posts)
-    return render(request, 'userApp/home.html', {'posts': posts})
+    random.shuffle(all_posts)
+    return render(request, 'userApp/home.html', {'posts': all_posts})
 
 
 def search_view(request):
