@@ -94,13 +94,11 @@
 </div>
 <div class="post-section">
     <div class="post-content">
-        {% for post in posts %}
-
         <div class="img-contain">
+            {% for post in posts %}
             <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
+            {% endfor %}
         </div>
-        {% endfor %}
-
     </div>
 
 </div>

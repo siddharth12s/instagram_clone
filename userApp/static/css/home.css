@@ -147,5 +147,19 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
+  height: auto;
+  border-bottom: none;
+}
+.post {
+  height: 15%;
+  padding: 2%;
+}
+#post-img {
+  height: 80%;
+  width: 100%;
+}
+.post > p {
+  padding: 5%;
+  height: 12%;
 }
