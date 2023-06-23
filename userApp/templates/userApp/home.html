@@ -73,7 +73,10 @@
 
                 <h3>{{ post.user_id.username }}</h3>
                 <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
-                <p>{{ post.caption }}</p>
+                <div class="caption-div">
+                    <h4>{{ post.user_id.username }}</h4>
+                    <p>{{ post.caption }}</p>
+                </div>
             </div>
 
             {% endfor %}

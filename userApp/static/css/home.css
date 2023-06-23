@@ -152,14 +152,23 @@ h3 {
   border-bottom: none;
 }
 .post {
-  height: 15%;
+  height: 600px;
+  width: 450px;
   padding: 2%;
 }
 #post-img {
   height: 80%;
   width: 100%;
 }
-.post > p {
+.caption-div {
   padding: 5%;
-  height: 12%;
+  display: flex;
+}
+.caption-div>h4{
+  display: flex;
+  align-items: center;
+}
+.caption-div>p{
+  margin-left: 10%;
+  margin-top: 3%;
 }
