@@ -154,7 +154,7 @@ h3 {
 .post {
   height: 600px;
   width: 450px;
-  padding: 2%;
+  padding: 4%;
 }
 #post-img {
   height: 80%;
@@ -162,13 +162,17 @@ h3 {
 }
 .caption-div {
   padding: 5%;
-  display: flex;
+  width: 100%;
 }
-.caption-div>h4{
-  display: flex;
-  align-items: center;
-}
+
 .caption-div>p{
-  margin-left: 10%;
-  margin-top: 3%;
+  margin: 0 0 0 0;
+  width: 70%;
+  display: inline;
+  
+}
+h6{
+  margin: 0;
+  width: 30%;
+  display: inline;
 }
