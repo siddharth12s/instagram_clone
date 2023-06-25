@@ -33,6 +33,13 @@ form {
   padding: 7%;
 }
 
+.errors {
+  padding: 2%;
+}
+.error {
+  color: red;
+  text-align: center;
+}
 button {
   width: 100%;
 }

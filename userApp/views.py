@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
-from .forms import PostForm
+from .forms import PostForm, EditForm
 from login_register.models import Users
 from .models import Posts, Follow
 from django.http import JsonResponse
@@ -17,13 +17,14 @@ from django.views.decorators.csrf import csrf_protect
 @login_required(login_url='login_register:login')
 def home_view(request):
     user = request.user
+    print(user.profile_image)
     followed_users = Follow.objects.filter(follower_id=user).values_list('following_id', flat=True)
     posts = list(Posts.objects.filter(user_id__in=followed_users).prefetch_related('user_id').order_by('-created_at'))
     user_posts = list(Posts.objects.filter(user_id=request.user))
     all_posts = posts + user_posts
     print(posts)
     random.shuffle(all_posts)
-    return render(request, 'userApp/home.html', {'posts': all_posts})
+    return render(request, 'userApp/home.html', {'posts': all_posts, 'profile_img': user.profile_image})
 
 
 def search_view(request):
@@ -47,12 +48,13 @@ def profile_view(request):
     profile = {
         'username': user.username,
         'bio': user.bio,
+        'profile_pic': user.profile_image,
         'followers': following_count,
         'following': follower_count,
         'post_count': post_count,
         'posts': user_images
     }
-    print(profile)
+    # print(profile)
     return render(request, 'userApp/profile.html', profile)
 
 @login_required(login_url='login_registerApp:login')
@@ -65,7 +67,7 @@ def post_view(request):
             post = form.save(commit=False)
             post.user_id = request.user
             post.save()
-            return redirect('home')  # Replace 'home' with the URL name of the desired redirect page
+            return redirect('home') 
     else:
         form = PostForm()
 
@@ -76,12 +78,12 @@ def post_view(request):
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
-        print(form)
+        # print(form)
         if form.is_valid():
             post = form.save(commit=False)
             post.user_id = request.user
             post.save()
-            return redirect('home')  # Replace 'home' with the URL name of the desired redirect page
+            return redirect('home')  
     else:
         form = PostForm()
 
@@ -91,7 +93,7 @@ def create_post(request):
 def other_profile(request, username):
     try:
         user = Users.objects.get(username=username)
-        print(user.email_address)
+        # print(user.email_address)
         follower_count = user.followers.all().count()
         following_count = user.following.all().count()
         post_count = Posts.objects.filter(user_id=user).count()
@@ -99,6 +101,7 @@ def other_profile(request, username):
         is_following = Follow.objects.filter(follower_id=user, following_id=request.user.id).exists()
         profile = {
             'username': user.username,
+            'profile_pic': user.profile_image,
             'bio': user.bio,
             'followers': following_count,
             'following': follower_count,
@@ -123,3 +126,15 @@ def follow_unfollow(request, username):
         Follow.objects.create(following_id=user_to_follow, follower_id=current_user)
     
     return redirect('other_profile', username=username)
+
+@csrf_protect
+def edit_profile(request, username):
+    updating_user = get_object_or_404(Users, username=username)
+    if request.method == 'POST':
+        form = EditForm(request.POST, request.FILES, instance=updating_user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    
+    # print(username)
+    return redirect('profile')

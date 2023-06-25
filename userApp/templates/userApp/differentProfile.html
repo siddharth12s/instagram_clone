@@ -5,6 +5,7 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 {% endblock %}
 {% block content %}
@@ -26,50 +27,57 @@
         <img src="{% static 'login_register/images/home1.png' %}" alt="" id="animated-image">
     </div> -->
     <!-- <div class="offcanvas-body"> -->
-    <a href="{% url 'home' %}" class="btn btn-light">Home</a>
-    <a href="#" class="btn btn-light" id="searchBtn">Search</a>
+    <header class="sidebar-header">
+        <img src="../../static/icons/logo.svg" class="logo-img">
+    </header>
 
-    <!-- Button trigger modal -->
-    <button id="myBtn" class="btn btn-light">Create</button>
+    <div class="nav">
+        <a href="{% url 'home' %}" class="btn btn-light">
+            <i class='bx bx-home'></i><span>Home</span></a>
+        <a href="#" class="btn btn-light" id="searchBtn"><i class='bx bx-search'></i><span>Search</span></a>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <!-- Button trigger modal -->
+        <button id="myBtn" class="btn btn-light"><i class='bx bx-plus-circle'></i><span>Create</span></button>
 
-            <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <h3>Create new post</h3>
-                {{ form.errors }}
-                <label for="file-upload" class="btn btn-primary" id="but">
-                    <i class="fas fa-cloud-upload-alt"></i> Select from your device
-                </label>
-                <input id="file-upload" type="file" style="display: none;" name="image">
-                <textarea type="text" class="custom-input" name="caption" placeholder="Enter your caption"></textarea>
-                <button id="myBtn2" class="btn btn-primary">Post</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
 
-            </form>
+                <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h3>Create new post</h3>
+                    {{ form.errors }}
+                    <label for="file-upload" class="btn btn-primary" id="but">
+                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                    </label>
+                    <input id="file-upload" type="file" style="display: none;" name="image">
+                    <textarea type="text" class="custom-input" name="caption"
+                        placeholder="Enter your caption"></textarea>
+                    <button id="myBtn2" class="btn btn-primary">Post</button>
 
+                </form>
+
+
+            </div>
 
         </div>
 
+        <!-- Modal -->
+        <a href="https://google.com" class="btn btn-light"><i class='bx bxl-messenger'></i><span>Messages</span></a>
+        <a href="{% url 'profile' %}" class="btn btn-light"><img src="{{ profile_pic.url }}" alt="" class="profile-img">
+            <span>Profile</span></a>
+        <a href="{% url 'login' %}">Log out</a>
+
+        <!-- </div> -->
     </div>
-
-    <!-- Modal -->
-    <a href="https://google.com" class="btn btn-light">Messages</a>
-    <a href="{% url 'profile' %}" class="btn btn-light">Profile</a>
-    <a href="{% url 'login' %}">Log out</a>
-
-    <!-- </div> -->
-
 </div>
 <div class="header">
-    <h1>Profile</h1>
+    <img src="{{ profile_pic.url }}" alt="">
     <div class="header-content">
         <div class="username-settings">
             <h3>{{ username }}</h3>
-            <a href="" class="btn btn-primary"> Edit Profile</a>
             <a href="{% url 'follow_unfollow' username=username %}" class="btn btn-primary">
                 {% if is_following %}
                 Unfollow

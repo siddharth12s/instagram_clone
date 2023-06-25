@@ -5,7 +5,7 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/profiles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
 {% block content %}
 <div id="searchDiv" class="showSearch">
@@ -26,68 +26,101 @@
         <img src="{% static 'login_register/images/home1.png' %}" alt="" id="animated-image">
     </div> -->
     <!-- <div class="offcanvas-body"> -->
-    <a href="{% url 'home' %}" class="btn btn-light">Home</a>
-    <a href="#" class="btn btn-light" id="searchBtn">Search</a>
+    <header class="sidebar-header">
+        <img src="../../static/icons/logo.svg" class="logo-img">
+        <!-- <i class="logo-icon bx bxl-instagram"></i> -->
+    </header>
 
-    <!-- Button trigger modal -->
-    <button id="myBtn" class="btn btn-light">Create</button>
+    <div class="nav">
+        <a href="{% url 'home' %}" class="btn btn-light">
+            <i class='bx bx-home'></i><span>Home</span></a>
+        <a href="#" class="btn btn-light" id="searchBtn"><i class='bx bx-search'></i><span>Search</span></a>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <!-- Button trigger modal -->
+        <button id="myBtn" class="btn btn-light"><i class='bx bx-plus-circle'></i><span>Create</span></button>
 
-            <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <h3>Create new post</h3>
-                {{ form.errors }}
-                <label for="file-upload" class="btn btn-primary" id="but">
-                    <i class="fas fa-cloud-upload-alt"></i> Select from your device
-                </label>
-                <input id="file-upload" type="file" style="display: none;" name="image">
-                <textarea type="text" class="custom-input" name="caption" placeholder="Enter your caption"></textarea>
-                <button id="myBtn2" class="btn btn-primary">Post</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
 
-            </form>
+                <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h3>Create new post</h3>
+                    {{ form.errors }}
+                    <label for="file-upload" class="btn btn-primary" id="but">
+                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                    </label>
+                    <input id="file-upload" type="file" style="display: none;" name="image">
+                    <textarea type="text" class="custom-input" name="caption"
+                        placeholder="Enter your caption"></textarea>
+                    <button id="myBtn2" class="btn btn-primary">Post</button>
 
+                </form>
+
+
+            </div>
 
         </div>
 
+        <!-- Modal -->
+        <a href="https://google.com" class="btn btn-light"><i class='bx bxl-messenger'></i><span>Messages</span></a>
+        <a href="{% url 'profile' %}" class="btn btn-light"><img src="{{ profile_pic.url }}" alt="" class="profile-img">
+            <span>Profile</span></a>
+        <a href="{% url 'login' %}">Log out</a>
+
+        <!-- </div> -->
     </div>
-
-    <!-- Modal -->
-    <a href="https://google.com" class="btn btn-light">Messages</a>
-    <a href="{% url 'profile' %}" class="btn btn-light">Profile</a>
-    <a href="{% url 'login' %}">Log out</a>
-
-    <!-- </div> -->
-
 </div>
 <div class="header">
-    <h1>Profile</h1>
+    <div class="profile-pic-contain">
+        <img src="{{ profile_pic.url }}" alt="" id="profile-pic">
+    </div>
     <div class="header-content">
+
         <div class="username-settings">
             <h3>{{ username }}</h3>
-            <a href="" class="btn btn-primary"> Edit Profile</a>
-            <a href="{% url 'posts' %}" class="btn btn-primary"> Settings</a>
+            <button id="editProfileButton" class="btn btn-light"> <strong>Edit Profile</strong></button>
+        </div>
+        <div id="editProfileModal" class="modal">
+            <div class="modal-edit-profile">
+                <!-- Modal content goes here -->
+                <span class="edit-close">&times;</span>
+                <div class="change-content">
+                    <form method="post" action="{% url 'edit' username %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="profile-pic-change">
+                            <h6>Change Profile picture</h6>
+                            <label for="fileInput" class="file-label">
+                                <input id="fileInput" type="file" class="file-input" accept="image/*"
+                                    name="profile_image">
+                                <span class="file-button">Select from device</span>
+                            </label>
+                        </div>
+                        <div class="change-bio">
+                            <h6>Change bio</h6>
+                            <textarea name="bio" id="change-bio" cols="30" rows="5"></textarea>
+                        </div>
+                        <button class="btn btn-dark" style="width: 50%; align-self: center;">Save</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="post-follow">
             <div class="posts">
-                <p>{{post_count}}</p>
-                <p>Posts</p>
+                <p>{{post_count}}&nbsp;&nbsp;&nbsp;Posts</p>
             </div>
             <div class="followers">
-                <p>{{following}}</p>
-                <p>Followers</p>
+                <p>{{following}}&nbsp;&nbsp;Followers</p>
             </div>
             <div class="following">
-                <p>{{followers}}</p>
-                <p>Following</p>
+                <p>{{followers}}&nbsp;&nbsp;Following</p>
             </div>
         </div>
         <div class="bio">
-            {{bio}}
+            <h4>Bio</h4>
+            <p> {{bio}}</p>
         </div>
     </div>
 </div>
@@ -96,7 +129,7 @@
     <div class="post-content">
         <div class="img-contain">
             {% for post in posts %}
-            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
+            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img" style="height: 350px;">
             {% endfor %}
         </div>
     </div>
@@ -106,4 +139,6 @@
 {% endblock %}
 {% block script %}
 <script src="{% static 'js/home.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/edit_profile.js' %}"></script>
 {% endblock %}

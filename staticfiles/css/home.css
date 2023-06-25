@@ -147,7 +147,7 @@ i {
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 
 .sidebar.shrink {
-  width: 10%;
+  width: 8%;
 }
 
 .showSearch {
@@ -187,7 +187,7 @@ i {
   height: auto;
   border-bottom: none;
 }
-.feed-content h1 {
+.feed-content h1{
   color: white;
 }
 .post {
@@ -200,7 +200,7 @@ i {
   width: 100%;
 }
 .caption-div {
-  padding-top: 5%;
+  padding: 5%;
   width: 100%;
 }
 
@@ -213,24 +213,4 @@ h6 {
   margin: 0;
   width: 30%;
   display: inline;
-}
-.img-username {
-  height: 7%;
-  display: flex;
-  justify-content: space-between;
-}
-.img-username h5 {
-  width: 88%;
-}
-.img-username img {
-  height: 90%;
-  border: 1px solid black;
-  border-radius: 50%;
-  width: 10%;
-}
-.profile-img {
-  border: 1px solid black;
-  width: 15%;
-  height: 100%;
-  border-radius: 60%;
 }
