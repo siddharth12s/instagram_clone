@@ -66,7 +66,8 @@
 
         <!-- Modal -->
         <a href="https://google.com" class="btn btn-light"><i class='bx bxl-messenger'></i><span>Messages</span></a>
-        <a href="{% url 'profile' %}" class="btn btn-light"><img src="{{ profile_pic.url }}" alt="" class="profile-img">
+        <a href="{% url 'profile' %}" class="btn btn-light"><img src="{{ sidebar_profile_img.url }}" alt=""
+                class="profile-img">
             <span>Profile</span></a>
         <a href="{% url 'login' %}">Log out</a>
 
@@ -74,7 +75,9 @@
     </div>
 </div>
 <div class="header">
-    <img src="{{ profile_pic.url }}" alt="">
+    <div class="profile-pic-contain">
+        <img src="{{ profile_pic.url }}" alt="" id="profile-pic">
+    </div>
     <div class="header-content">
         <div class="username-settings">
             <h3>{{ username }}</h3>
@@ -88,20 +91,18 @@
         </div>
         <div class="post-follow">
             <div class="posts">
-                <p>{{post_count}}</p>
-                <p>Posts</p>
+                <p>{{post_count}}&nbsp;&nbsp;&nbsp;Posts</p>
             </div>
             <div class="followers">
-                <p>{{following}}</p>
-                <p>Followers</p>
+                <p>{{following}}&nbsp;&nbsp;Followers</p>
             </div>
             <div class="following">
-                <p>{{followers}}</p>
-                <p>Following</p>
+                <p>{{followers}}&nbsp;&nbsp;Following</p>
             </div>
         </div>
         <div class="bio">
-            {{bio}}
+            <h4>Bio</h4>
+            <p> {{bio}}</p>
         </div>
     </div>
 </div>
@@ -110,7 +111,7 @@
     <div class="post-content">
         <div class="img-contain">
             {% for post in posts %}
-            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
+            <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img" style="height: 350px;">
             {% endfor %}
         </div>
 

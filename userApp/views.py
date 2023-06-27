@@ -17,7 +17,6 @@ from django.views.decorators.csrf import csrf_protect
 @login_required(login_url='login_register:login')
 def home_view(request):
     user = request.user
-    print(user.profile_image)
     followed_users = Follow.objects.filter(follower_id=user).values_list('following_id', flat=True)
     posts = list(Posts.objects.filter(user_id__in=followed_users).prefetch_related('user_id').order_by('-created_at'))
     user_posts = list(Posts.objects.filter(user_id=request.user))
@@ -32,7 +31,6 @@ def search_view(request):
         search_query = request.GET.get('search_query', '')
         users = Users.objects.filter(username__istartswith=search_query)
         userDataList = [user.username for user in users]
-        print(userDataList)
         return JsonResponse(userDataList, safe=False)
         # return render(request, 'userApp/home.html', {'userDataList': userDataList})
     return render(request, 'userApp/home.html')
@@ -62,7 +60,6 @@ def profile_view(request):
 def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
-        print(form)
         if form.is_valid():
             post = form.save(commit=False)
             post.user_id = request.user
@@ -78,7 +75,6 @@ def post_view(request):
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
-        # print(form)
         if form.is_valid():
             post = form.save(commit=False)
             post.user_id = request.user
@@ -93,11 +89,11 @@ def create_post(request):
 def other_profile(request, username):
     try:
         user = Users.objects.get(username=username)
-        # print(user.email_address)
         follower_count = user.followers.all().count()
         following_count = user.following.all().count()
         post_count = Posts.objects.filter(user_id=user).count()
         user_images = Posts.objects.filter(user_id=user)
+        sidebar_profile_img = request.user.profile_image
         is_following = Follow.objects.filter(follower_id=user, following_id=request.user.id).exists()
         profile = {
             'username': user.username,
@@ -107,7 +103,8 @@ def other_profile(request, username):
             'following': follower_count,
             'post_count': post_count,
             'posts': user_images,
-            'following_button': is_following
+            'following_button': is_following,
+            'sidebar_profile_img': sidebar_profile_img,
         }
         return render(request, 'userApp/differentProfile.html', profile)
     except Users.DoesNotExist:
@@ -136,5 +133,4 @@ def edit_profile(request, username):
             form.save()
             return redirect('profile')
     
-    # print(username)
     return redirect('profile')

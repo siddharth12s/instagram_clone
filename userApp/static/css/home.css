@@ -25,12 +25,9 @@
 /* The Close Button */
 .close {
   color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  width: 3%;
-  align-self: flex-end;
-  margin-right: 2%;
+  font-size: 34px;
+  text-align: right;
+  width: 95%;
 }
 
 .close:hover,
@@ -151,14 +148,18 @@ i {
 }
 
 .showSearch {
-  position: absolute;
+  position: fixed;
   top: 20%;
   left: 10%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 #searchDiv {
   width: 15%;
+  height: 100vh;
+  /* background-color: red; */
 }
 .hidesearch {
   display: none;
@@ -191,17 +192,33 @@ i {
   color: white;
 }
 .post {
-  height: 600px;
+  height: fit-content;
   width: 450px;
   padding: 4%;
+  /* border-bottom: 1px solid grey; */
+  /* box-shadow: 0px 0px 0px 2px grey inset; */
+  /* box */
 }
 #post-img {
-  height: 80%;
+  height: 477px;
   width: 100%;
 }
 .caption-div {
-  padding-top: 5%;
+  padding-top: 2%;
   width: 100%;
+  height: fit-content;
+}
+#myIcons {
+  height: 5%;
+  font-size: 100%;
+  padding: 0;
+  background: white;
+  border: none;
+}
+.end-box {
+  width: 100%;
+  height: 25px;
+  border-bottom: 1px solid lightgray;
 }
 
 .caption-div > p {
@@ -215,6 +232,7 @@ h6 {
   display: inline;
 }
 .img-username {
+  margin-bottom: 5px;
   height: 7%;
   display: flex;
   justify-content: space-between;
@@ -223,7 +241,7 @@ h6 {
   width: 88%;
 }
 .img-username img {
-  height: 90%;
+  height: 80%;
   border: 1px solid black;
   border-radius: 50%;
   width: 10%;
@@ -233,4 +251,25 @@ h6 {
   width: 15%;
   height: 100%;
   border-radius: 60%;
+}
+.file-label {
+  display: inline-block;
+  background-color: blue;
+  margin: 0 auto;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+}
+.file-label span {
+  width: 100%;
+  text-align: center;
+}
+.file-button {
+  font-size: 16px;
+}
+.file-input {
+  display: none;
 }

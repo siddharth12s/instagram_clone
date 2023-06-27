@@ -5,7 +5,7 @@ from login_register.models import Users
 class Posts(models.Model):
     post_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    caption = models.CharField(max_length=50, blank=True)
+    caption = models.CharField(max_length=500, blank=True)
     image = models.ImageField(upload_to='post_images', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

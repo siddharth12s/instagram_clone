@@ -43,20 +43,18 @@
         <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">&times;</span>
-
+                <div class="close">&times;</div>
                 <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h3>Create new post</h3>
                     {{ form.errors }}
-                    <label for="file-upload" class="btn btn-primary" id="but">
-                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                    <label for="fileInput" class="file-label">
+                        <input id="fileInput" type="file" class="file-input" accept="image/*" name="image">
+                        <span class="file-button">Select from your device</span>
                     </label>
-                    <input id="file-upload" type="file" style="display: none;" name="image">
                     <textarea type="text" class="custom-input" name="caption"
                         placeholder="Enter your caption"></textarea>
                     <button id="myBtn2" class="btn btn-primary">Post</button>
-
                 </form>
 
 
@@ -72,7 +70,7 @@
         <!-- </div> -->
     </div>
     <div class="log-out">
-        <a href="{% url 'login' %}">Log out</a>
+        <a href="{% url 'logout' %}">Log out</a>
     </div>
 </div>
 <div class="feed">
@@ -86,10 +84,12 @@
                     <h5>{{ post.user_id.username }}</h5>
                 </div>
                 <img src="{{ post.image.url }}" alt="{{ post.caption }}" id="post-img">
+                <div id="myIcons" class="btn btn-light"><i class='bx bx-heart'></i></div>
+                <div class="likes"><strong>Liked by {{likes}} people</strong></div>
                 <div class="caption-div">
-                    <h6></h6>
                     <p><strong>{{ post.user_id.username }}</strong> &nbsp;&nbsp;&nbsp;&nbsp;{{ post.caption }}</p>
                 </div>
+                <div class="end-box"></div>
             </div>
 
             {% endfor %}

@@ -43,16 +43,16 @@
         <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <div class="close">&times;</div>
 
                 <form method="post" action="{% url 'posts' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h3>Create new post</h3>
                     {{ form.errors }}
                     <label for="file-upload" class="btn btn-primary" id="but">
-                        <i class="fas fa-cloud-upload-alt"></i> Select from your device
+                        <input id="file-upload" type="file" style="display: none;" name="image">
+                        <span class="file-button">Select from your device</span>
                     </label>
-                    <input id="file-upload" type="file" style="display: none;" name="image">
                     <textarea type="text" class="custom-input" name="caption"
                         placeholder="Enter your caption"></textarea>
                     <button id="myBtn2" class="btn btn-primary">Post</button>
