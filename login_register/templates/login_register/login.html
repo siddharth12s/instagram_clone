@@ -30,7 +30,7 @@
                         placeholder="Enter your password" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
-                <a href="{% url 'register' %}">Create your account</a>
+                <a href="{% url 'register' %}" style="margin-top: 10px;">Create your account</a>
                 {% if messages %}
                 <div class="errors">
                     {% for message in messages %}

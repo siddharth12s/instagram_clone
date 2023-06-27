@@ -11,9 +11,11 @@
         </div>
         {% endif %}
         <div class="logo-login">
-            <h3>Instagram</h3>
+            <img src="{% static 'images/icons/logo.PNG' %}" alt="" id="img">
             <p>Sign up to see photos and videos from your friends.</p>
+
         </div>
+        <!-- <p>Sign up to see photos and videos from your friends.</p> -->
         <div class="card-body">
             <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
@@ -34,6 +36,10 @@
                         placeholder="Enter your password" name="password" />
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
+                <div class="have-account">
+                    <p>Have account ?</p>
+                    <a href="{% url 'login' %}">Sign in</a>
+                </div>
             </form>
         </div>
     </div>
