@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user
 from .forms import PostForm, EditForm
 from login_register.models import Users
+from login_register.views import login_view
 from .models import Posts, Follow
 from django.http import JsonResponse
 import random
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth import logout
 
 
 
@@ -14,7 +16,7 @@ from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 @csrf_protect
-@login_required(login_url='login_register:login')
+@login_required(login_url=login_view)
 def home_view(request):
     user = request.user
     followed_users = Follow.objects.filter(follower_id=user).values_list('following_id', flat=True)
@@ -25,7 +27,7 @@ def home_view(request):
     random.shuffle(all_posts)
     return render(request, 'userApp/home.html', {'posts': all_posts, 'profile_img': user.profile_image})
 
-
+@login_required(login_url=login_view)
 def search_view(request):
     if request.method == 'GET':
         search_query = request.GET.get('search_query', '')
@@ -36,7 +38,7 @@ def search_view(request):
     return render(request, 'userApp/home.html')
 
 
-@login_required(login_url='login_register:login')
+@login_required(login_url=login_view)
 def profile_view(request):
     user = Users.objects.get(id=request.user.id)
     follower_count = user.followers.all().count()
@@ -55,7 +57,7 @@ def profile_view(request):
     # print(profile)
     return render(request, 'userApp/profile.html', profile)
 
-@login_required(login_url='login_registerApp:login')
+@login_required(login_url=login_view)
 @csrf_protect
 def post_view(request):
     if request.method == 'POST':
@@ -72,6 +74,7 @@ def post_view(request):
     
 
 @csrf_protect
+@login_required(login_url=login_view)
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -85,7 +88,7 @@ def create_post(request):
 
     return render(request, 'post_form.html', {'form': form})
 
-
+@login_required(login_url=login_view)
 def other_profile(request, username):
     try:
         user = Users.objects.get(username=username)
@@ -110,7 +113,7 @@ def other_profile(request, username):
     except Users.DoesNotExist:
         return render(request, 'userApp/differentProfile.html')
     
-
+@login_required(login_url=login_view)
 def follow_unfollow(request, username):
     user_to_follow = Users.objects.get(username=username)
     current_user = request.user
@@ -125,6 +128,7 @@ def follow_unfollow(request, username):
     return redirect('other_profile', username=username)
 
 @csrf_protect
+@login_required(login_url=login_view)
 def edit_profile(request, username):
     updating_user = get_object_or_404(Users, username=username)
     if request.method == 'POST':
@@ -134,3 +138,8 @@ def edit_profile(request, username):
             return redirect('profile')
     
     return redirect('profile')
+
+@login_required(login_url=login_view)
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
