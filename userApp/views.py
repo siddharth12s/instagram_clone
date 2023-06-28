@@ -13,7 +13,6 @@ from django.contrib.auth import logout
 
 
 
-
 # Create your views here.
 @csrf_protect
 @login_required(login_url=login_view)
@@ -23,7 +22,7 @@ def home_view(request):
     posts = list(Posts.objects.filter(user_id__in=followed_users).prefetch_related('user_id').order_by('-created_at'))
     user_posts = list(Posts.objects.filter(user_id=request.user))
     all_posts = posts + user_posts
-    print(posts)
+    # print(posts)
     random.shuffle(all_posts)
     return render(request, 'userApp/home.html', {'posts': all_posts, 'profile_img': user.profile_image})
 
@@ -109,6 +108,7 @@ def other_profile(request, username):
             'following_button': is_following,
             'sidebar_profile_img': sidebar_profile_img,
         }
+        # print(profile)
         return render(request, 'userApp/differentProfile.html', profile)
     except Users.DoesNotExist:
         return render(request, 'userApp/differentProfile.html')
@@ -122,10 +122,12 @@ def follow_unfollow(request, username):
     
     if is_following:
         Follow.objects.filter(following_id=user_to_follow, follower_id=current_user).delete()
+        is_following = False
     else:
         Follow.objects.create(following_id=user_to_follow, follower_id=current_user)
+        is_following = True
     
-    return redirect('other_profile', username=username)
+    return JsonResponse({'is_following': is_following})
 
 @csrf_protect
 @login_required(login_url=login_view)
